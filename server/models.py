@@ -13,14 +13,17 @@ class Author(db.Model):
 
     # Add validators 
     @validates('name')
-    def validate_name(self,key,name):
+    def validate_name(self, key, name):
         if not name:
             raise ValueError("All authors have a name") 
+        
         return name
+    
     @validates('phone_number')
-    def validate_phone_number(self,key,phone_number):
-        if phone_number and not phone_number.isdigit() or len(phone_number)!=10:
+    def validate_phone_number(self, key, phone_number):
+        if not phone_number.isdigit() or len(phone_number) != 10:
             raise ValueError("Author phone numbers are exactly ten digits.")
+        
         return phone_number
 
     def __repr__(self):
@@ -42,6 +45,7 @@ class Post(db.Model):
     def validate_content(self, key, content):
         if len(content) < 250:
             raise ValueError("Post content must be at least 250 characters long.")
+        
         return content
 
     @validates('summary')
